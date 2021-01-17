@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields.related import ForeignKey
 
 # Create your models here.
 '''
@@ -20,9 +21,14 @@ class Job(models.Model): # table
     published_at = models.DateTimeField(auto_now=True)
     Vacancy = models.IntegerField(default=1)
     salary = models.IntegerField(default=0)
-    # category 
+    category = ForeignKey('Category', models.CASCADE)
     experience = models.IntegerField(default=1)
 
     def __str__(self):
         return self.title
 
+class Category(models.Model):
+    name = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.name
