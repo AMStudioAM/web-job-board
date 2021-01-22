@@ -9,7 +9,7 @@ from .form import AddJob, Job
 def job_list(request):
     job_list = Job.objects.all() # return all jobs in the site 
 
-    paginator = Paginator(job_list, 2) # Show 2 contacts per page.
+    paginator = Paginator(job_list, 10) # Show 2 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {"jobs": page_obj} # template name 
@@ -23,6 +23,7 @@ def job_detail(request , slug):
             myform = form.save(commit=False)
             myform.job = job_detail
             myform.save()
+            form = ApplicationForm()
     else:
         form = ApplicationForm()
     context = {"job": job_detail, 'form' :form}
